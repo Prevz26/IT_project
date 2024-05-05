@@ -1,86 +1,78 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
+<head>
+{% if title %}
+    {{title}}
+{% else %}
+    {% block title %}REGISTRATION{% endblock title %}
+{% endif %}
+{% block header %}
+<link rel="stylesheet" href="{{url_for('static', filename='register.css')}}">
+{% endblock header %}
+</head>
 
-<html>
-    <head>
-        <title> STUDENT REGISTRATION PAGE </title>
-        <style>
-            body {
-              background-color: rgb(185, 185, 211);
-              color: white;
-              font-family: Arial, sans-serif;
-              padding: 20px;
-            }
-            input[type="text"] {
-              width: 200px;
-              padding: 10px;
-              border-radius: 5px;
-              border: none;
-            }
-            button {
-              background-color: #3b7abd;
-              color: white;
-              padding: 10px 20px;
-              border: none;
-              border-radius: 10px;
-              cursor: pointer;
-              margin-right: 10px;
-            }
-          </style>
-    </head>
 <body>
+    {% block content %}
+    <div class="register">
     <h2> FILL THE FORM BELOW ACCURATELY </h2>
-    <form>
+    <form method="post", action="">
+        {{form.hidden_tag()}}
+    </div>
+
+        
+    <br>
         <div>
-        <label for="fname"> FIRST NAME: </label>
-        <input type="text" id="fname" name="fname">
+            {{form.first_name.label}}
+            {{form.first_name}}
+        </div>
+    <br>  
+
+    <br>
+        <div>
+            {{form.last_name.label}}
+            {{form.last_name}}
+        </div>
+    <br>
+
+    <br>
+        <div>
+            {{form.reg_no.label}}
+            {{form.reg_no}}
+        </div>
+    <br>    
+
+    <br>
+        <div>
+            {{form.department.label}}
+            {{form.department}}
+        </div>
+    <br>
+
+    <br>
+        <div>
+            {{form.faculty.label}}
+            {{form.faculty}}
+        </div>
+    <br>    
+
+    <br>
+        <div>
+            {{form.email.label}}
+            {{form.email}}
+        </div>
+    <br>    
+    
+
+
+    <div class = button>
+        {{form.submit}}
     </div>
     <br>
-    <div>
-        <label for="lname"> LAST NAME: </label>
-        <input type="text" id="lname" name="lname">
+    <div class = button>
+        {{form.reset}}
     </div>
-<br>
 
-<div>
-    <label for="regno."> REG. NO. : </label>
-    <input type="text" id="regno." name="regno.">
+        
+            </form>
 </div>
-<br>
-<div>
-    <label for="dept"> DEPARTMENT: </label>
-    <input type="text" id="dept" name="dept" >
-</div>
-<br>
-<div>
-    <label for="faculty"> FACULTY: </label>
-    <input type="text" id="faculty." name="faculty" >
-</div>
-<br>
-<div>
-    <label for="mail"> EMAIL: </label>
-    <input type="text" id="eadress" name="email">
-</div>
-<br>
-<div>
-    <button>
-        <input type="RESET">
-        </button>
-        <button>
-        <input type="SUBMIT">
-    <style>
-    button {
-        background-color: #3b7abd;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        margin-right: 10px;
-      }
-    </style>
-      </button>
-</div>
-
-    </form>
+    {% endblock content %}
 </body>
-</html>
