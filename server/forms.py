@@ -10,7 +10,6 @@ class Registration(FlaskForm):
     
     reg_no = StringField(label="REG-NO", validators=[DataRequired(), Length(min=10, max=10)])
     
-    
     department = StringField(label="DEPARTMENT", validators=[DataRequired()])
     
     faculty = StringField(label="FACULTY", validators=[DataRequired()])
