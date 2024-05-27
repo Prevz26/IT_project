@@ -1,7 +1,7 @@
 from server.models import db, Student
 from server import app
 
-def add_student_if_not_exists(first_name, last_name, reg_no, email, department, faculty):
+def add_student_if_not_exists(first_name:str, last_name:str, reg_no:str, email:str, department:str, faculty:str):
     """
     Adds a new student to the database if the student with the given registration number does not already exist.
 
@@ -52,6 +52,6 @@ if __name__ == "__main__":
             faculty="physical science",
         ) 
 
-        # If you want to print all students after adding
+        #check if the are valid object
         if stud1 or stud2:
             print(Student.query.all())
