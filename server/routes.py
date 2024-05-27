@@ -1,12 +1,11 @@
 from flask import render_template, flash, redirect, url_for
-from server import create_app
+from server import app
 from server.forms import Registration, Login
 from server.config import secret_key_config
 from secrets import token_hex
 from server.models import Student
 
 secret_key_config(token_hex(16))
-app = create_app()
 @app.route("/", methods = ["GET", "POST"])
 @app.route("/login" , methods = ["GET", "POST"])
 def home():

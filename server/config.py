@@ -1,8 +1,8 @@
-from server import create_app
+from server import app
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import DeclarativeBase
 
-def secret_key_config(secret_key:str):
+def secret_key_config(secret_key:str) -> None:
     """
     Set the secret key for the Flask application.
 
@@ -12,27 +12,24 @@ def secret_key_config(secret_key:str):
     Returns:
         None
     """
-    app = create_app()
+
     app.config['SECRET_KEY'] = secret_key
 
 
-def database_config():
+def database_config() -> dict:
     """
-    Configure the database connection for the Flask application.
+    Returns a dictionary containing the configuration settings for the database.
 
-    This function sets the SQLAlchemy database URI for the Flask application.
-    It uses the SQLite database file "project.db" located in the current directory.
-
-    Parameters:
-        None
-
-    Returns:
-        SQLAlchemy: An instance of the SQLAlchemy class, taking the flask instance as parameter.
+    :return: A dictionary with the following keys:
+             - "SQLALCHEMY_DATABASE_URI": The URI for the database connection.
+             - "SQLALCHEMY_TRACK_MODIFICATIONS": A boolean indicating whether or not to track modifications to database objects.
+    :rtype: dict
     """
-    app = create_app()
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///student.db"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    return SQLAlchemy(app)
+    return {
+        "SQLALCHEMY_DATABASE_URI": "sqlite:///student.db",
+        "SQLALCHEMY_TRACK_MODIFICATIONS": False,
+    }
+
 
 
 
