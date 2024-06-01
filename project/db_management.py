@@ -30,6 +30,13 @@ def add_student_if_not_exists(first_name:str, last_name:str, reg_no:str, email:s
         return student
     return None
 
+def check_if_student_exist(reg_no:str):
+    if Student.query.filter_by(reg_no=reg_no).first() is not None:
+        print(Student.first_name)
+    else:
+        print("does not exist")
+
+
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
@@ -52,6 +59,11 @@ if __name__ == "__main__":
             faculty="physical science",
         ) 
 
+        reg_no = "12345678fi"
+        check_if_student_exist(reg_no)
+        
         #check if the are valid object
-        if stud1 or stud2:
-            print(Student.query.all())
+        # if stud1 or stud2:
+        #     print(Student.query.all())
+        # else:
+        #     print("nothing")

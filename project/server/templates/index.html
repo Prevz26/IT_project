@@ -19,10 +19,11 @@
 		<div class="img-mylogo"></div>
 	</div>
 	<br>
-	<div class="register">
-		<form method="post", action="">
-		{{login.reg_no.label}}	
-		{{login.reg_no}}
+	<div class="login">
+		<form method="POST", action="/login">
+		{{form.hidden_tag()}}
+		{{form.reg_no.label}}	
+		{{form.reg_no}}
 	</div>
 
 	<button>LOGIN</button>
