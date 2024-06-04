@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
 from server import app
 from server.forms import Registration, Login
 from server.config import secret_key_config
@@ -37,11 +37,18 @@ def register():
             department=form.department.data, 
             faculty=form.faculty.data
         )
+        session["first_name"] = form.first_name.data
+        session["last_name"] = form.last_name.data
+        session["reg_no"] = form.reg_no.data
+        session["email"] = form.email.data
+        session["department"] = form.department.data
+        session["faculty"] = form.faculty.data
         db.session.add(student1)
         db.session.commit()
         return redirect(url_for("profiles"))
     return render_template("signup_form.html", title = "Registration", form = form)
 
 @app.route("/profile/<name>")
-def profiles():
-    return "hello"
+def profiles(name):
+    if name == session["first_name"]:
+        return name
