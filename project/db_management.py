@@ -28,7 +28,7 @@ def add_student_if_not_exists(first_name:str, last_name:str, reg_no:str, email:s
         db.session.add(student)
         db.session.commit()
         return student
-    return None
+    print("exist already")
 
 def check_if_student_exist(reg_no:str):
     if Student.query.filter_by(reg_no=reg_no).first() is not None:

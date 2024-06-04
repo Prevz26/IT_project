@@ -33,9 +33,8 @@ def database_config() -> dict:
     }
 
 class Encryption:
-    def __init__(self, password:str, hashed_password = None):
+    def __init__(self, password:str):
         self.password = password
-        self.hashed_password  = hashed_password
 
     def password_hashing(self):
         """
@@ -61,11 +60,13 @@ class Encryption:
         Returns:
             bool: True if the password matches the hashed password, False otherwise.
         """
-        ispassword = bcrypt.check_password_hash(self.hashed_password, self.password)
+        ispassword = bcrypt.check_password_hash(hashed_password, password)
         if ispassword:
             return True
         return False
 
 if __name__ == "__main__":
     obj1 = Encryption("ojogu")
-    print(obj1.password_hashing())
+    password = (obj1.password_hashing())
+    print (obj1.decode_password(password, "prevz"))
+

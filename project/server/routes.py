@@ -1,11 +1,9 @@
-# from project.db_management import *
-# from server.utils import password_hashing, decode_password
 from flask import render_template, flash, redirect, url_for, request
 from server import app
 from server.forms import Registration, Login
 from server.config import secret_key_config
 from secrets import token_hex
-from server.models import db, Student
+from server.models import Student, db
 
 secret_key_config(token_hex(16))
 
@@ -21,23 +19,29 @@ def home():
         if check_if_student_exist(data):
             return redirect(url_for("profile"))
         else:
-             return 'not register'
-        # return render_template("profile.html", data = data)
+            return "do not exist"
     else:
         return render_template("index.html", form = form)
-    # else:
-    #     redirect("register")
-    # return render_template("index.html", title = "Login", login = login)
+
 
 
 @app.route("/registration", methods = ["GET", "POST"])
 def register():
-    form = Registration()
+    form:Registration = Registration()
     if form.validate_on_submit():
-        flash(f"registration successful{form.first_name.data}")
-        return redirect(url_for("home"))
+        student1 = Student(
+            first_name=form.first_name.data, 
+            last_name=form.last_name.data, 
+            reg_no=form.reg_no.data, 
+            email=form.email.data, 
+            department=form.department.data, 
+            faculty=form.faculty.data
+        )
+        db.session.add(student1)
+        db.session.commit()
+        return redirect(url_for("profiles"))
     return render_template("signup_form.html", title = "Registration", form = form)
 
-@app.route("/profile/")
-def profile():
+@app.route("/profile/<name>")
+def profiles():
     return "hello"
