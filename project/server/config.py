@@ -4,6 +4,7 @@ from sqlalchemy.orm import DeclarativeBase
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
+
 def secret_key_config(secret_key:str) -> None:
     """
     Set the secret key for the Flask application.

@@ -23,6 +23,18 @@ class Student(db.Model):
     department = db.Column(db.String(50), nullable=False)
     faculty = db.Column(db.String(50), nullable=False)
     
+    def serialize(self):
+        return {
+            "id":self.id,
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "reg_no":self.reg_no,
+            "email":self.email,
+            "department":self.department,
+            "faculty":self.faculty,
+            
+        }
+    
     def __repr__(self) -> str:
         """
         Returns a string representation of the object.

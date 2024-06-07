@@ -1,52 +1,38 @@
-from flask_bcrypt import Bcrypt
-bcrypt = Bcrypt()
-class Encryption:
+from server.models import Student, db
+
+def add_student_if_not_exists(first_name:str, last_name:str, reg_no:str, email:str, department:str, faculty:str):
     """
-        Initializes an instance of the Encryption class.
+    Adds a new student to the database if the student with the given registration number does not already exist.
 
-        Args:
-            password (str): The password to be hashed.
-            hashed_password (str, optional): The hashed password. Defaults to an empty string.
+    Args:
+        first_name (str): The first name of the student.
+        last_name (str): The last name of the student.
+        reg_no (str): The registration number of the student.
+        email (str): The email address of the student.
+        department (str): The department of the student.
+        faculty (str): The faculty of the student.
+
+    Returns:
+        Student or None: The newly created student object if the student with the given registration number does not exist, None otherwise.
     """
-    
-    def __init__(self, password:str, hashed_password = ""):
-        self.password = password
-        self.hashed_password  = hashed_password
+    if not Student.query.filter_by(reg_no=reg_no).first():
+        student = Student(
+            first_name=first_name,
+            last_name=last_name,
+            reg_no=reg_no,
+            email=email,
+            department=department,
+            faculty=faculty
+        )
+        db.session.add(student)
+        db.session.commit()
+        return student
+    return None
 
-    def password_hashing(self):
-        """
-        Generates a hashed password using the bcrypt algorithm.
-
-        Parameters:
-            password (str): The password to be hashed.
-
-        Returns:
-            str: The hashed password.
-        """
-        hashed_password = bcrypt.generate_password_hash(self.password).decode("utf-8")
-        return hashed_password
-
-    def decode_password(self, hashed_password, password):
-        """
-        Check if the provided password matches the hashed password.
-
-        Parameters:
-            hashed_password (str): The hashed password to compare against.
-            password (str): The password to check.
-
-        Returns:
-            bool: True if the password matches the hashed password, False otherwise.
-        """
-        ispassword = bcrypt.check_password_hash(password, hashed_password)
-        if ispassword:
-            return True
-        return False
+def check_if_student_exist(reg_no:str):
+    if Student.query.filter_by(reg_no=reg_no).first():
+        return True
+    return False
 
 if __name__ == "__main__":
-    password = "nkang"
-    obj1 = Encryption(password)
-    hashed_password = (obj1.password_hashing())
-    print(hashed_password)
-    decrpyt = obj1.decode_password( password, hashed_password)
-    print(decrpyt)
-
+    print (check_if_student_exist("10760805fi"))
